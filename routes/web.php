@@ -21,3 +21,10 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 Route::get('/', [HomeController::class, 'showHomePage']);
 
 Route::get('/category', [CategoryController::class, 'showCategory'])->name('category.showCategory');
+
+Route::prefix('category')->group(function () {
+    Route::get('/food-beverage', [CategoryController::class, 'showFoodBeverage'])->name('category.foodBeverage');
+    Route::get('/beauty-health', [CategoryController::class, 'showBeautyHealth'])->name('category.beautyHealth');
+    Route::get('/home-care', [CategoryController::class, 'showHomeCare'])->name('category.homeCare');
+    Route::get('/baby-kid', [CategoryController::class, 'showBabyKid'])->name('category.babyKid');
+});
