@@ -19,3 +19,5 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 */
 
 Route::get('/', [HomeController::class, 'showHomePage']);
+
+Route::get('/category', [CategoryController::class, 'showCategory'])->name('category.showCategory');
