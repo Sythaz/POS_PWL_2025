@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -35,3 +36,5 @@ Route::get('/user/{id?}/name/{name?}', [UserController::class, 'showUser',])->na
 Route::get('/transaction', [TransactionController::class, 'showTransaction'])->name('transaction.showTransaction');
 
 Route::get('/level', [LevelController::class, 'index']);
+
+Route::get('/kategori', [KategoriController::class, 'index']);
