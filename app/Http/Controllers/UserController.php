@@ -10,7 +10,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::find(1);               // Mengambil data dari tabel m_user yang memiliki 'id' 1
+        // $user = UserModel::find();
+        $user = UserModel::where('level_id', 1)->first(); // Memiliki fungsi yang sama
         return view('user', ['data' => $user]);
     }
 
