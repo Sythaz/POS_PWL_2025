@@ -29,7 +29,8 @@
             <input type="number" name="level_id" placeholder="Masukan ID Level" value="{{ $data->level_id }}">
             <br><br>
             <input type="submit" class="btn btn-success" value="Ubah">
-            </ form>
+            
+        </form>
     </body>
 
 </body>
