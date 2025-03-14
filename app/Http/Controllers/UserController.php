@@ -18,4 +18,9 @@ class UserController extends Controller
     {
         return view('user', ['id' => $id, 'name' => $name]);
     }
+
+    public function tambah()
+    {
+        return view('user_tambah');
+    }
 }
