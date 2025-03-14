@@ -11,5 +11,14 @@ class UserModel extends Model
 
     protected $table = 'm_user';        // Mendefinisikan nama tabel yang digunakan oleh model ini
     protected $primaryKey = 'user_id';  // Mendefinisikan primary key dari tabel yang digunakan
+  
+    /** 
+     * Mirip seperti comment ( // ) namun bisa digunakan untuk multi line.
+     * Khusus php.
+     * 
+     * $fillable: Atribut yang bisa diisi (seperti insert, update).
+     * @var array */
+    protected $fillable = ['level_id', 'username', 'nama', 'password'];
+
 
 }
