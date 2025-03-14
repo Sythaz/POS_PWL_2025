@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::find(1);               // Mengambil semua data dari tabel m_user
+        $user = UserModel::find(1);               // Mengambil data dari tabel m_user yang memiliki 'id' 1
         return view('user', ['data' => $user]);
     }
 
