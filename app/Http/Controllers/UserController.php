@@ -10,9 +10,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        // $user = UserModel::find();
-        // $user = UserModel::where('level_id', 1)->first(); 
-        $user = UserModel::firstWhere('level_id', 1);       // Memiliki fungsi yang sama dengan dua fungsi diatas
+        // Mencari data dengan 'id' = 1, jika ada maka mengembalikan data username dan nama
+        $user = UserModel::findOr(1, ['username', 'nama'], function () {
+            // jika data tidak ditemukan maka akan mengembalikan nilai 404
+            abort(404);
+        });
         return view('user', ['data' => $user]);
     }
 
