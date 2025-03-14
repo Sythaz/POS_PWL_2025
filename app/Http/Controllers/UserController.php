@@ -23,4 +23,9 @@ class UserController extends Controller
     {
         return view('user_tambah');
     }
+
+    public function tambah_simpan()
+    {
+        return view('user_tambah');
+    }
 }
