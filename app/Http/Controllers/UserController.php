@@ -10,10 +10,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::where('level_id', 2)->count(); // Menghitung jumlah user dengan level_id = 2
-        // Mirip seperti break yang menghentikan kode dibawahnya, namun ini juga bisa digunakan untuk debugging
-        // Seperti paduan print dan break
-        // dd($user); 
+        $user = UserModel::firstOrCreate(
+            [
+                'username' => 'manager',
+                'nama' => 'Manager',
+            ],
+        );
 
         return view('user', ['data' => $user]);
     }
