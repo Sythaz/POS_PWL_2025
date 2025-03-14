@@ -10,8 +10,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::all();
-        return view('user', ['data' => $user]);
+        $user = UserModel::with('level')->get();
+        dd($user);
     }
 
     public function showUser($id = 22, $name = 'Syafiq')
@@ -60,7 +60,7 @@ class UserController extends Controller
     {
         $user = UserModel::find($id);
         $user->delete();
-        
+
         return redirect('/user');
     }
 }
