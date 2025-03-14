@@ -13,7 +13,7 @@ class UserController extends Controller
         $user = UserModel::where('level_id', 2)->count(); // Menghitung jumlah user dengan level_id = 2
         // Mirip seperti break yang menghentikan kode dibawahnya, namun ini juga bisa digunakan untuk debugging
         // Seperti paduan print dan break
-        dd($user); 
+        // dd($user); 
 
         return view('user', ['data' => $user]);
     }
