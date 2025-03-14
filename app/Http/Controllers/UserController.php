@@ -12,8 +12,13 @@ class UserController extends Controller
     {
         $user = UserModel::firstOrNew(
             [
-                'username' => 'manager',
-                'nama' => 'Manager',
+                'username' => 'manager33',
+                'nama' => 'Manager Tiga Tiga',
+                // Jika mencari data namun menambahkan hash, akan membuat data tidak lengkap
+                // Hanya mengembalikan data yang dicari dan ada seperti 'username', 'nama' dan 'level_id'
+                // Bisa dihapus atau menghilangkan password dari $fillable
+                'password' => Hash::make('12345'), 
+                'level_id' => 2
             ],
         );
 
