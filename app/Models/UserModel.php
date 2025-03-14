@@ -18,7 +18,7 @@ class UserModel extends Model
      * 
      * $fillable: Atribut yang bisa diisi (seperti insert, update).
      * @var array */
-    protected $fillable = ['level_id', 'username', 'nama', 'password'];
+    protected $fillable = ['level_id', 'username', 'nama'];
 
 
 }
