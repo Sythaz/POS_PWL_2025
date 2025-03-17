@@ -6,6 +6,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
@@ -20,7 +21,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 |
 */
 
-Route::get('/', [HomeController::class, 'showHomePage']);
+Route::get('/', [WelcomeController::class, 'index']);
 
 Route::get('/category', [CategoryController::class, 'showCategory'])->name('category.showCategory');
 
