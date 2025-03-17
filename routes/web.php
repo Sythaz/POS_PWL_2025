@@ -23,6 +23,17 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 
 Route::get('/', [WelcomeController::class, 'index']);
 
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'index']);          // <enampilkan halaman awal user
+    Route::post('/list', [UserController::class, 'list']);      // Menampilkan data user dalam bentuk json untuk datatables
+    Route::get('/create', [UserController::class, 'create']);   // menampilkan halaman form tambah user
+    Route::post('/', [UserController::class, 'store']);         // menyimpan data user baru
+    Route::get('/{id}', [UserController::class, 'show']);       // menampilkan detail user
+    Route::get('/{id}/edit', [UserController::class, 'edit']);  // Menampilkan halaman form edit user
+    Route::put('/{id}', [UserController::class, 'update']);     // menyimpan perubahan data user
+    Route::delete('/{id}', [UserController::class, 'destroy']); // menghapus data user
+});
+
 Route::get('/category', [CategoryController::class, 'showCategory'])->name('category.showCategory');
 
 Route::prefix('category')->group(function () {
