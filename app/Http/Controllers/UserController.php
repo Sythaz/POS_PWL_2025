@@ -10,8 +10,17 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::with('level')->get();
-        return view('user', ['data' => $user]);
+        $breadcrumb = (object) [
+            'title' => 'Daftar User',
+            'list' => ['Home', 'User']
+        ];
+        $page = (object) [
+            'title' => 'Daftar user yang terdaftar dalam sistem'
+        ];
+
+        $activeMenu = 'user'; // Set menu yang sedang aktif
+
+        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function showUser($id = 22, $name = 'Syafiq')
@@ -50,9 +59,9 @@ class UserController extends Controller
         $user->nama = $request->nama;
         $user->password = Hash::make('$request->password');
         $user->level_id = $request->level_id;
-        
+
         $user->save();
-        
+
         return redirect('/user');
     }
 
