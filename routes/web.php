@@ -4,6 +4,7 @@ use App\Http\Controllers\categoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -56,31 +57,13 @@ Route::group(['prefix' => 'kategori'], function () {
     Route::delete('/{id}', [KategoriController::class, 'destroy']); // menghapus data kategori
 });
 
-Route::get('/category', [CategoryController::class, 'showCategory'])->name('category.showCategory');
-
-Route::prefix('category')->group(function () {
-    Route::get('/food-beverage', [CategoryController::class, 'showFoodBeverage'])->name('category.foodBeverage');
-    Route::get('/beauty-health', [CategoryController::class, 'showBeautyHealth'])->name('category.beautyHealth');
-    Route::get('/home-care', [CategoryController::class, 'showHomeCare'])->name('category.homeCare');
-    Route::get('/baby-kid', [CategoryController::class, 'showBabyKid'])->name('category.babyKid');
+Route::group(['prefix' => 'supplier'], function () {
+    Route::get('/', [SupplierController::class, 'index']);          // <enampilkan halaman awal supplier
+    Route::post('/list', [SupplierController::class, 'list']);      // Menampilkan data supplier dalam bentuk json untuk datatables
+    Route::get('/create', [SupplierController::class, 'create']);   // menampilkan halaman form tambah supplier
+    Route::post('/', [SupplierController::class, 'store']);         // menyimpan data supplier baru
+    Route::get('/{id}', [SupplierController::class, 'show']);       // menampilkan detail supplier
+    Route::get('/{id}/edit', [SupplierController::class, 'edit']);  // Menampilkan halaman form edit supplier
+    Route::put('/{id}', [SupplierController::class, 'update']);     // menyimpan perubahan data supplier
+    Route::delete('/{id}', [SupplierController::class, 'destroy']); // menghapus data supplier
 });
-
-Route::get('/user/{id?}/name/{name?}', [UserController::class, 'showUser',])->name('user.showUser');
-
-Route::get('/transaction', [TransactionController::class, 'showTransaction'])->name('transaction.showTransaction');
-
-Route::get('/level', [LevelController::class, 'index']);
-
-Route::get('/kategori', [KategoriController::class, 'index']);
-
-Route::get('/user', [UserController::class, 'index']);
-
-Route::get('/user/tambah', [UserController::class, 'tambah']);
-
-Route::post('/user/tambah_simpan', [UserController::class, 'tambah_simpan']);
-
-Route::get('/user/ubah/{id}', [UserController::class, 'ubah']);
-
-Route::put('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
-
-Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
