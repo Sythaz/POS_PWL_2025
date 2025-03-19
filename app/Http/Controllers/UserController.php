@@ -90,14 +90,14 @@ class UserController extends Controller
             'title' => 'Detail User',
             'list' => ['Home', 'User', 'Detail']
         ];
-        
+
         $page = (object) [
             'title' => 'Detail user'
         ];
 
         $activeMenu = 'user'; // set menu yang sedang aktif
 
-        return view('user. show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
+        return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
 
     public function showUser($id = 22, $name = 'Syafiq')
