@@ -77,11 +77,13 @@ class SupplierController extends Controller
             // username harus diisi, berupa string, minimal 3 karakter, dan bernilai unik di tabel m_user kolom username
             'supplier_kode' => 'required|string|min:3|unique:m_user,username',
             'supplier_nama' => 'required|string|max:100', // nama harus diisi, berupa string, dan maksimal 100 karakter
+            'supplier_alamat' => 'required|string|max:255', // nama harus diisi, berupa string, dan maksimal 100 karakter
         ]);
 
         SupplierModel::create([
             'supplier_kode' => $request->supplier_kode,
-            'supplier_nama' => $request->supplier_nama
+            'supplier_nama' => $request->supplier_nama,
+            'supplier_alamat' => $request->supplier_alamat
         ]);
 
         return redirect('/supplier')->with('success', 'Data supplier berhasil disimpan');
