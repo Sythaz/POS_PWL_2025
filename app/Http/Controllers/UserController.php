@@ -22,7 +22,9 @@ class UserController extends Controller
 
         $activeMenu = 'user'; // Set menu yang sedang aktif
 
-        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        $level = LevelModel::all();
+
+        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
 
     // Ambil data user dalam bentuk json untuk datatables
@@ -149,7 +151,7 @@ class UserController extends Controller
             // untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
             return redirect('/user')->with('error', 'Data user tidak ditemukan');
         }
-        
+
         try {
             UserModel::destroy($id); // Hapus data level
             return redirect('/user')->with('success', 'Data user berhasil dihapus');
