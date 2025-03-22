@@ -205,6 +205,14 @@ class UserController extends Controller
         }
     }
 
+    // Menampilkan halaman form edit user ajax
+    public function edit_ajax(string $id)
+    {
+        $user = UserModel::find($id);
+        $level = LevelModel::select('level_id', 'level_nama')->get();
+        return view('user.edit_ajax', ['user' => $user, 'level' => $level]);
+    }
+
     // public function showUser($id = 22, $name = 'Syafiq')
     // {
     //     return view('user', ['id' => $id, 'name' => $name]);
