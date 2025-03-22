@@ -233,7 +233,7 @@ class UserController extends Controller
                     'msgField' => $validator->errors() // menunjukkan field mana yang error
                 ]);
             }
-            
+
             $check = UserModel::find($id);
             if ($check) {
                 if (!$request->filled('password')) { // jika password tidak diisi, maka hapus dari request
@@ -253,6 +253,12 @@ class UserController extends Controller
             }
         }
         return redirect('/');
+    }
+
+    public function confirm_ajax(string $id)
+    {
+        $user = UserModel::find($id);
+        return view('user.confirm_ajax', ['user' => $user]);
     }
 
     // public function showUser($id = 22, $name = 'Syafiq')
