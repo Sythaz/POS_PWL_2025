@@ -82,6 +82,7 @@
         </div>
     </form>
     <script>
+/*************  ✨ Codeium Command 🌟  *************/
         $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
@@ -117,7 +118,8 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataUser.ajax.reload();
+                                // dataUser.ajax.reload();
+                                $('#table_user').DataTable().ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {
@@ -146,6 +148,7 @@
                 }
             });
         });
+/******  af726d7e-3965-4b88-99ad-6056acc50afd  *******/
     </script>
 @endempty
 
