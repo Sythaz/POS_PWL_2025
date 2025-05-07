@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 |
 */
 
-Route::pattern('id', ' [0-9]+'); // artinya ketika ada parameter {id}, maka harus berupa angka
+Route::pattern('id', '[0-9]+'); // artinya ketika ada parameter {id}, maka harus berupa angka
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postlogin']);
@@ -85,12 +85,12 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
 
         Route::get('/create_ajax', [KategoriController::class, 'create_ajax']);     // Menampilkan halaman form tambah kategori Ajax
         Route::post('/ajax', [KategoriController::class, 'store_ajax']);            // Menyimpan data kategori baru Ajax
+        Route::get('/{id}', [KategoriController::class, 'show']);       // menampilkan detail kategori
         Route::get('/{id}/edit_ajax', [KategoriController::class, 'edit_ajax']);        // Menampilkan halaman form edit kategori Ajax
         Route::put('/{id}/update_ajax', [KategoriController::class, 'update_ajax']);   // Menyimpan perubahan data kategori Ajax
         Route::get('/{id}/delete_ajax', [KategoriController::class, 'confirm_ajax']); // Untuk tampilkan form confirm delete level Ajax
         Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']); // Untuk hapus data level Ajax
 
-        Route::get('/{id}', [KategoriController::class, 'show']);       // menampilkan detail kategori
         Route::get('/{id}/edit', [KategoriController::class, 'edit']);  // Menampilkan halaman form edit kategori
         Route::put('/{id}', [KategoriController::class, 'update']);     // menyimpan perubahan data kategori
         Route::delete('/{id}', [KategoriController::class, 'destroy']); // menghapus data kategori
@@ -119,20 +119,24 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         Route::group(['prefix' => 'barang'], function () {
             Route::get('/', [BarangController::class, 'index']);          // Menampilkan halaman awal barang
             Route::post('/list', [BarangController::class, 'list']);      // Menampilkan data barang dalam bentuk json untuk datatables
-            Route::get('/create', [BarangController::class, 'create']);   // menampilkan halaman form tambah barang
-            Route::post('/', [BarangController::class, 'store']);         // menyimpan data barang baru
-
+            
             Route::get('/create_ajax', [BarangController::class, 'create_ajax']);           // Menampilkan halaman form tambah barang Ajax
             Route::post('/ajax', [BarangController::class, 'store_ajax']);                  // Menyimpan data barang baru Ajax
             Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);          // Menampilkan halaman form edit barang Ajax
             Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']);      // Menyimpan perubahan data barang Ajax
             Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);     // Untuk tampilkan form confirm delete level Ajax
             Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);   // Untuk hapus data level Ajax
-
+            
             Route::get('/{id}', [BarangController::class, 'show']);       // menampilkan detail barang
             Route::get('/{id}/edit', [BarangController::class, 'edit']);  // Menampilkan halaman form edit barang
             Route::put('/{id}', [BarangController::class, 'update']);     // menyimpan perubahan data barang
             Route::delete('/{id}', [BarangController::class, 'destroy']); // menghapus data barang
+            
+            Route::get('/create', [BarangController::class, 'create']);   // menampilkan halaman form tambah barang
+            Route::post('/', [BarangController::class, 'store']);         // menyimpan data barang baru
+            
+            Route::get('/import', [BarangController::class, 'import']);
+            Route::post('/import_ajax', [BarangController::class, 'import_ajax']);
         });
     });
 });
