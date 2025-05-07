@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\HomeController;
@@ -22,6 +23,16 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::pattern('id', ' [0-9]+'); // artinya ketika ada parameter {id}, maka harus berupa angka
+
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'postlogin']);
+Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
+
+Route::middleware(['auth'])->group(function () { // artinya semua route di dalam group ini harus login du
+    // masukkan semua route yang perlu autentikasi di sini
+});
 
 Route::get('/', [WelcomeController::class, 'index']);
 
@@ -47,7 +58,7 @@ Route::group(['prefix' => 'level'], function () {
     Route::post('/list', [LevelController::class, 'list']);      // Menampilkan data level dalam bentuk json untuk datatables
     Route::get('/create', [LevelController::class, 'create']);   // menampilkan halaman form tambah level
     Route::post('/', [LevelController::class, 'store']);         // menyimpan data level baru
-    
+
     Route::get('/create_ajax', [LevelController::class, 'create_ajax']);     // Menampilkan halaman form tambah user Ajax
     Route::post('/ajax', [LevelController::class, 'store_ajax']);            // Menyimpan data user baru Ajax
     Route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']);        // Menampilkan halaman form edit user Ajax
