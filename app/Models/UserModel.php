@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class UserModel extends Model
+class UserModel extends Authenticatable
 {
     use HasFactory;
 
@@ -20,6 +21,12 @@ class UserModel extends Model
      * $fillable: Atribut yang bisa diisi (seperti insert, update).
      * @var array */
     protected $fillable = ['level_id', 'username', 'nama', 'password'];
+
+    protected $hidden = ['password' ]; // data password tidak ditampilkan saat select/find 
+
+    protected $casts = ['password' => 'hashed']; // casting password agar otomatis di hash
+    // sehingga tidak perlu diisi lagi, contoh: $user->password = Hash::make('123456');
+    // menjadi: $user->password = '123456'; saja.
 
     public function level(): BelongsTo
     {
