@@ -14,13 +14,12 @@ class AuthorizeUser
      * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)
      */
 
-    public function handle(Request $request, Closure $next, ... $roles): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        // ambil data user yg login
-        // fungsi user() diambil dari UserModel.php
-        $user_role = $request->user()->getRole();
-
-        if (in_array($user_role, $roles)) { // cek apakah user punya role yg diinginkan, semisal hasRole('admin')
+        // cek apakah user punya role yg diinginkan
+        // if ($request->user()->hasRole(...$roles)) { // spread operator untuk mengirimkan array of roles
+            // Karena terdapat banyak role, maka membutuhkan array di roles sehingga butuh explode
+        if ($request->user()->hasRole(explode(',', implode(',', $roles)))) { // explode untuk mengubah string menjadi array
             return $next($request); // Jika ada, maka lanjutkan request
         }
 

@@ -116,7 +116,6 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
     });
 
     Route::middleware(['authorize:ADM,MNG'])->group(function () {
-
         Route::group(['prefix' => 'barang'], function () {
             Route::get('/', [BarangController::class, 'index']);          // Menampilkan halaman awal barang
             Route::post('/list', [BarangController::class, 'list']);      // Menampilkan data barang dalam bentuk json untuk datatables
