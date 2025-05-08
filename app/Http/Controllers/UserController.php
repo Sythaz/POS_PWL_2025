@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\LevelModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -282,53 +284,58 @@ class UserController extends Controller
         }
     }
 
-    // public function showUser($id = 22, $name = 'Syafiq')
-    // {
-    //     return view('user', ['id' => $id, 'name' => $name]);
-    // }
+    public function profil()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar User',
+            'list' => ['Home', 'User']
+        ];
 
-    // public function tambah()
-    // {
-    //     return view('user_tambah');
-    // }
+        $activeMenu = 'profil';
 
-    // public function tambah_simpan(Request $request)
-    // {
-    //     UserModel::create([
-    //         'username' => $request->username,
-    //         'nama' => $request->nama,
-    //         'password' => Hash::make($request->password),
-    //         'level_id' => $request->level_id,
-    //     ]);
+        return view('profil.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+    }
 
-    //     return redirect('/user');
-    // }
+    public function upload_profil_ajax()
+    {
+        return view('profil.upload_ajax');
+    }
 
-    // public function ubah($id)
-    // {
-    //     $user = UserModel::find($id);
-    //     return view('user_ubah', ['data' => $user]);
-    // }
+    public function updateProfil(Request $request)
+    {
+        $request->validate([
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
 
-    // public function ubah_simpan(Request $request, $id)
-    // {
-    //     $user = UserModel::find($id);
+        try {
+            $user = Auth::user();
+            $file = $request->file('foto');
 
-    //     $user->username = $request->username;
-    //     $user->nama = $request->nama;
-    //     $user->password = Hash::make('$request->password');
-    //     $user->level_id = $request->level_id;
+            // Nama file unik
+            $filename = $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/profile_photos', $filename);
 
-    //     $user->save();
+            // Hapus foto lama kalau ada
+            if ($user->profile_url && Storage::exists('public/profile_photos/' . $user->profile_url)) {
+                Storage::delete('public/profile_photos/' . $user->profile_url);
+            }
 
-    //     return redirect('/user');
-    // }
+            // Simpan nama file ke DB
+            $user->profile_url = $filename;
+            $user->save();
 
-    // public function hapus($id)
-    // {
-    //     $user = UserModel::find($id);
-    //     $user->delete();
-
-    //     return redirect('/user');
-    // }
+            return response()->json([
+                'status' => true,
+                'message' => 'Foto berhasil diupload',
+                'profile_url' => asset('storage/profile_photos/' . $filename),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Upload gagal',
+                'msgField' => [],
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
