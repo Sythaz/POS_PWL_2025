@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LevelModel;
 use App\Models\UserModel;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -329,7 +330,7 @@ class UserController extends Controller
                 'message' => 'Foto berhasil diupload',
                 'profile_url' => asset('storage/profile_photos/' . $filename),
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'Upload gagal',
@@ -337,5 +338,7 @@ class UserController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+
+        return redirect('/');
     }
 }

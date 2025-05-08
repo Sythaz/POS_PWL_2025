@@ -21,21 +21,22 @@
             </div>
             <!-- /.card-body -->
         </div>
-    @endsection
+    </div>
+@endsection
 
-    <!-- Sebuah div untuk template/tempat modal yang ditampilkan -->
-    <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static"
-        data-keyboard="false" data-width="75%" aria-hidden="true"></div>
+<!-- Sebuah div untuk template/tempat modal yang ditampilkan -->
+<div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" databackdrop="static"
+    data-keyboard="false" data-width="75%" aria-hidden="true"></div>
 
-    @push('css')
-    @endpush
+@push('css')
+@endpush
 
-    @push('js')
-        <script>
-            function modalAction(url = '') {
-                $('#myModal').load(url, function() {
-                    $('#myModal').modal('show');
-                });
-            }
-        </script>
-    @endpush
+@push('js')
+    <script>
+        function modalAction(url = '') {
+            $('#myModal').load(url, function() {
+                $('#myModal').modal('show');
+            });
+        }
+    </script>
+@endpush

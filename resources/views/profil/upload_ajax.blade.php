@@ -31,8 +31,7 @@
             rules: {
                 foto: {
                     required: true, // Wajib diisi
-                    extension: "jpg|jpeg|png", // Hanya file dengan ekstensi ini yang diizinkan
-                    filesize: 2048 // Hanya file dengan ukuran maksimal 2048KB (2MB) yang diizinkan
+                    extension: "jpg|jpeg|png", // Hanya file dengan ekstensi ini yang diizinkan                    
                 }
             },
 
