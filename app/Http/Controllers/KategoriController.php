@@ -20,7 +20,7 @@ class KategoriController extends Controller
         ];
 
         $page = (object) [
-            'title' => 'Daftar kategori barang yang terdaftar dalam sistem'
+            'title' => 'Daftar kategori kategori yang terdaftar dalam sistem'
         ];
 
         $activeMenu = 'kategori'; // set menu yang sedang aktif
@@ -332,5 +332,53 @@ class KategoriController extends Controller
             }
         }
         return redirect('/');
+    }
+
+    public function export_excel()
+    {
+        // Ambil data kategori yang akan di export
+        $kategori = KategoriModel::select('kategori_id', 'kategori_kode', 'kategori_nama')
+            ->orderBy('kategori_id')
+            ->get();
+
+        // Load library excel 
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();    // Ambil sheet yang aktif
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Kode Kategori');
+        $sheet->setCellValue('C1', 'Nama Kategori');
+
+        $sheet->getStyle('A1:C1')->getFont()->setBold(true);    // Bold header
+
+        $no = 1;    // Nomor data dimulai dari 1
+        $baris = 2; // Baris data dimulai dari baris ke-2
+
+        foreach ($kategori as $value) {
+            $sheet->setCellValue('A' . $baris, $no);
+            $sheet->setCellValue('B' . $baris, $value->kategori_kode);
+            $sheet->setCellValue('C' . $baris, $value->kategori_nama);
+            $baris++;
+            $no++;
+        }
+
+        foreach (range('A', 'C') as $columnId) {
+            $sheet->getColumnDimension($columnId)->setAutoSize(true);
+        }
+
+        $sheet->setTitle('Data Kategori');    // Set title sheet
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $filename = 'Data_Kategori_' . date('Y-m-d_H-i-s') . '.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Pragma: public');
+
+        $writer->save('php://output');
+        exit;
     }
 }
