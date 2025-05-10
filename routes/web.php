@@ -59,6 +59,9 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']);  // Untuk tampilkan form confirm delete user Ajax
         Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']); // Untuk hapus data user Ajax
         Route::delete('/{id}', [UserController::class, 'destroy']); // menghapus data user
+
+        Route::get('/import', [UserController::class, 'import']);
+        Route::post('/import_ajax', [UserController::class, 'import_ajax']);
     });
 
 
@@ -80,6 +83,9 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
             Route::get('/{id}/edit', [LevelController::class, 'edit']);  // Menampilkan halaman form edit level
             Route::put('/{id}', [LevelController::class, 'update']);     // menyimpan perubahan data level
             Route::delete('/{id}', [LevelController::class, 'destroy']); // menghapus data level
+
+            Route::get('/import', [LevelController::class, 'import']);
+            Route::post('/import_ajax', [LevelController::class, 'import_ajax']);
         });
     });
 
@@ -100,6 +106,9 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         Route::get('/{id}/edit', [KategoriController::class, 'edit']);  // Menampilkan halaman form edit kategori
         Route::put('/{id}', [KategoriController::class, 'update']);     // menyimpan perubahan data kategori
         Route::delete('/{id}', [KategoriController::class, 'destroy']); // menghapus data kategori
+
+        Route::get('/import', [KategoriController::class, 'import']);
+        Route::post('/import_ajax', [KategoriController::class, 'import_ajax']);
     });
 
     Route::group(['prefix' => 'supplier'], function () {
@@ -119,6 +128,9 @@ Route::middleware(['auth'])->group(function () { // artinya semua route di dalam
         Route::get('/{id}/edit', [SupplierController::class, 'edit']);  // Menampilkan halaman form edit supplier
         Route::put('/{id}', [SupplierController::class, 'update']);     // menyimpan perubahan data supplier
         Route::delete('/{id}', [SupplierController::class, 'destroy']); // menghapus data supplier
+
+        Route::get('/import', [SupplierController::class, 'import']);
+        Route::post('/import_ajax', [SupplierController::class, 'import_ajax']);
     });
 
     Route::middleware(['authorize:ADM,MNG'])->group(function () {

@@ -18,11 +18,18 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         // User model seeder role mng
+        // UserModel::factory()->create([
+        //     'nama' => 'Manager Z',
+        //     'username' => 'ManagerZ',
+        //     'password' => Hash::make('123456789'),
+        //     'level_id' => 2
+        // ]);
+
         UserModel::factory()->create([
-            'namaz' => 'Manager Z',
-            'username' => 'ManagerZ',
+            'nama' => 'Admin Z',
+            'username' => 'AdminZ',
             'password' => Hash::make('123456789'),
-            'level_id' => 2
+            'level_id' => 1
         ]);
 
         // \App\Models\User::factory()->create([
