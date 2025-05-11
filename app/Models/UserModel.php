@@ -11,6 +11,18 @@ class UserModel extends Authenticatable
 {
     use HasFactory;
 
+    // Mendapatkan key yang digunakan untuk generate token JWT.
+    // Dalam hal ini, kita menggunakan primary key dari tabel user.
+    public function getJWTIdentifier() {
+        return $this->getKey();
+    }
+
+    // Mendapatkan custom claims yang akan dimasukkan ke dalam token JWT.
+    // Dalam hal ini, kita tidak menggunakan custom claims apapun.
+    public function getJWTCustomClaims() {
+        return [];
+    }
+
     protected $table = 'm_user';        // Mendefinisikan nama tabel yang digunakan oleh model ini
     protected $primaryKey = 'user_id';  // Mendefinisikan primary key dari tabel yang digunakan
 

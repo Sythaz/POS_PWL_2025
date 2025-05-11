@@ -40,6 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        /*
+         * Guard untuk authentication berbasis API,
+         * menggunakan driver jwt (json web token)
+         * dan menggunakan provider users
+         */
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ]
     ],
 
     /*
