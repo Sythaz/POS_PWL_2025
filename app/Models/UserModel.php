@@ -14,13 +14,15 @@ class UserModel extends Authenticatable implements JWTSubject
 
     // Mendapatkan key yang digunakan untuk generate token JWT.
     // Dalam hal ini, kita menggunakan primary key dari tabel user.
-    public function getJWTIdentifier() {
+    public function getJWTIdentifier()
+    {
         return $this->getKey();
     }
 
     // Mendapatkan custom claims yang akan dimasukkan ke dalam token JWT.
     // Dalam hal ini, kita tidak menggunakan custom claims apapun.
-    public function getJWTCustomClaims() {
+    public function getJWTCustomClaims()
+    {
         return [];
     }
 
@@ -33,7 +35,13 @@ class UserModel extends Authenticatable implements JWTSubject
      * 
      * $fillable: Atribut yang bisa diisi (seperti insert, update).
      * @var array */
-    protected $fillable = ['level_id', 'username', 'nama', 'password'];
+    protected $fillable = [
+        'level_id',
+        'username',
+        'nama',
+        'password',
+        'profile',
+    ];
 
     protected $hidden = ['password']; // data password tidak ditampilkan saat select/find 
 
