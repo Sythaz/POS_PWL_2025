@@ -17,11 +17,12 @@ class RegisterController extends Controller
             'nama' => 'required',
             'password' => 'required|min:5|confirmed',
             'level_id' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // If validation fails
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 422);
         }
 
         // Create new user
@@ -30,6 +31,8 @@ class RegisterController extends Controller
             'nama' => $request->nama,
             'password' => bcrypt($request->password),
             'level_id' => $request->level_id,
+            // menyimpan nama file yang diupload dengan nama yang unik
+            'image' => $request->file('image')->hashName(),
         ]);
 
         // If user created return response JSON

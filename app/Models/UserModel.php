@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -41,6 +42,7 @@ class UserModel extends Authenticatable implements JWTSubject
         'nama',
         'password',
         'profile',
+        'image',
     ];
 
     protected $hidden = ['password']; // data password tidak ditampilkan saat select/find 
@@ -52,6 +54,13 @@ class UserModel extends Authenticatable implements JWTSubject
     public function level(): BelongsTo
     {
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
+    }
+
+    public function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn($image) => url('storage/post/' . $image),
+        );
     }
 
     /**
